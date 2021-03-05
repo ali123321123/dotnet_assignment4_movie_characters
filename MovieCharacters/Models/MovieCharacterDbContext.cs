@@ -21,6 +21,10 @@ namespace MovieCharacters.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>().HasData(new Movie { Id = 1, Title = "Inception", Genre = "Thriller", ReleaseYear = 2010, Director = "Christopher Nolan", Picture = "link", Trailer = "link", FranchiseId = null });
+            modelBuilder.Entity<Character>().HasData(new Character { Id = 1, FirstName = "William Bradley", LastName = " Pitt", Alias = "Brad Pitt", Gender = "male", Picture = "link" });
         }
+             
+
     }
-}
+    }
+
