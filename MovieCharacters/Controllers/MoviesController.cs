@@ -106,10 +106,10 @@ namespace MovieCharacters.Controllers
         }
 
         [HttpGet("{id}/characters")]
-        public ActionResult<IEnumerable<Character>> GetCharactersForMovie(int id)
+        public async Task<ActionResult<IEnumerable<Character>>> GetCharactersForMovie(int id)
         {
-            Movie movie = _context.Movies.Include(m => m.Characters).Where(m => m.Id == id).FirstOrDefault();
-            foreach(Character character in movie.Characters)
+            Movie movie = await _context.Movies.Include(m => m.Characters).FirstOrDefaultAsync(m => m.Id == id);
+            foreach (Character character in movie.Characters)
             {
                 movie.Characters = null;
             }
@@ -117,9 +117,25 @@ namespace MovieCharacters.Controllers
         }
 
         [HttpPost("{id}/characters")]
-
-        public IActionResult CharacterToMovie(int id, List<int> characters)
+        public async Task<IActionResult> CharacterToMovie(int id, List<int> characters)
         {
+            Movie movie = await _context.Movies.Include(m => m.Characters).FirstOrDefaultAsync(m => m.Id == id);
+            if(characters == null)
+            {
+                return NotFound();
+            }
+            foreach (int characterId in characters)
+            {
+                if(movie.Characters.FirstOrDefault(m => m.Id == characterId) == null)
+                {
+                    Character character = await _context.Characters.FindAsync(characterId);
+                    if(character != null)
+                    {
+                        movie.Characters.Add(character);
+                    }
+                }
+            }
+            await _context.SaveChangesAsync();
             return NoContent();
         }
     }
