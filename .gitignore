@@ -72,6 +72,9 @@ StyleCopReport.xml
 #Jsonconfigfile
 appsettings.json
 
+#MigrationsFile
+moviecharacters/Migrations/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c
