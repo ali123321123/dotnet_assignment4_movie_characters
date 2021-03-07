@@ -14,5 +14,7 @@ namespace MovieCharacters.DTO
         public string Director { get; set; }
         public string Picture { get; set; }
         public string Trailer { get; set; }
+        public string FranchiseName { get; set; }
+        public List<string> Characters { get; set; }
     }
 }
