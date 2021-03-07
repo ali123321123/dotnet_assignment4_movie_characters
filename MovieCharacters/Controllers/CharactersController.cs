@@ -112,7 +112,7 @@ namespace MovieCharacters.Controllers
         {
             CharacterDTO characterDTO = new CharacterDTO { Id = id };
             Character character = _mapper.Map<Character>(characterDTO);
-            var characterToDelete = await _context.Characters.FindAsync(characterDTO.id);
+            var characterToDelete = await _context.Characters.FindAsync(characterDTO.Id);
             if (characterToDelete == null)
             {
                 return NotFound();

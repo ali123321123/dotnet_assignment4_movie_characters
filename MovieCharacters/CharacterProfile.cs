@@ -13,6 +13,7 @@ namespace MovieCharacters
         public CharacterProfile()
         {
             CreateMap<Character, CharacterDTO>();
+            CreateMap<CharacterDTO, Character>();
         }
 
     }
