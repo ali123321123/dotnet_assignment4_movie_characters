@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Models\DomainModels\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
