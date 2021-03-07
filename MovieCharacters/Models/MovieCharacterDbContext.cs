@@ -20,7 +20,14 @@ namespace MovieCharacters.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 1, Title = "Inception", Genre = "Thriller", ReleaseYear = 2010, Director = "Christopher Nolan", Picture = "link", Trailer = "link", FranchiseId = null });
+             
+            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 1, Title = "Inception", Genre = "Thriller", ReleaseYear =2010, Director = "Christopher Nolan", Picture = "link", Trailer = "link", FranchiseId = null });
+            modelBuilder.Entity<Character>().HasData(new Character { Id = 2, FirstName = "Bradley", LastName = "Cooper", Alias = "Nip", Gender = "Male", Picture = "link" });
+            modelBuilder.Entity<Character>().HasData(new Character { Id = 1, FirstName = "Carl", LastName = "Lumbly", Alias = "Justice League Unlimited", Gender = "Male", Picture = "link" });
+            modelBuilder.Entity<Character>().HasData(new Character { Id = 3, FirstName = "Jennifer", LastName = "Garner", Alias = "Felicity", Gender = "Female", Picture = "link" });
+            modelBuilder.Entity<Character>().HasData(new Character { Id = 4, FirstName = "Lena", LastName = "Olin", Alias = "Fanny and Alexander", Gender = "Female", Picture = "link" });
+             
         }
+        
     }
 }
