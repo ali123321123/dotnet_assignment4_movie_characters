@@ -138,5 +138,25 @@ namespace MovieCharacters.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPut("{id}/characters")]
+        public async Task<IActionResult> UpdateCharactersForMovie(int id, List<int> characters)
+        {
+            Movie movie = await _context.Movies.Include(m => m.Characters).FirstOrDefaultAsync(m => m.Id == id);
+            if (characters == null)
+            {
+                return NotFound();
+            }
+            movie.Characters.Clear();
+            foreach (int characterId in characters)
+            {
+
+                Character character = await _context.Characters.FindAsync(characterId);
+                movie.Characters.Add(character);
+            }
+            await _context.SaveChangesAsync();
+            return NoContent();
+
+        }
     }
 }
