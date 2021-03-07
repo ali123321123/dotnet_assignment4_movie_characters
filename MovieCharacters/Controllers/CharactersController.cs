@@ -44,71 +44,81 @@ namespace MovieCharacters.Controllers
 
         // GET: api/Characters/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetCharacter(int id)
+        public async Task<ActionResult<CharacterDTO>> GetCharacter(int id)
         {
             var character = await _context.Characters.FindAsync(id);
-
-            if (character == null)
+            CharacterDTO characterDTO = _mapper.Map<CharacterDTO>(character);
+            if (characterDTO == null)
             {
                 return NotFound();
             }
 
-            return character;
+            return characterDTO;
         }
 
         // PUT: api/Characters/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter(int id, Character character)
+        public async Task<IActionResult> PutCharacter(int id, CharacterDTO characterDTO)
         {
-            if (id != character.Id)
-            {
-                return BadRequest();
-            }
+             if (id != characterDTO.Id)
+                  {
+                     return BadRequest();
+                  }
 
-            _context.Entry(character).State = EntityState.Modified;
+        
+                Character character = _mapper.Map<Character>(characterDTO);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CharacterExists(id))
+                _context.Entry(character).State = EntityState.Modified;
+
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!CharacterExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
-            }
 
-            return NoContent();
-        }
+                return NoContent();
+            }
+       
 
         // POST: api/Characters
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Character>> PostCharacter(Character character)
+        public async Task<ActionResult<Character>> PostCharacter(CharacterDTO characterDTO)
         {
+
+            Character character = _mapper.Map<Character>(characterDTO);
+
+
             _context.Characters.Add(character);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+            return CreatedAtAction("GetCharacter", new { id = characterDTO.Id }, characterDTO);
         }
 
         // DELETE: api/Characters/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
-            if (character == null)
+            CharacterDTO characterDTO = new CharacterDTO { Id = id };
+            Character character = _mapper.Map<Character>(characterDTO);
+            var characterToDelete = await _context.Characters.FindAsync(characterDTO.id);
+            if (characterToDelete == null)
             {
                 return NotFound();
             }
 
-            _context.Characters.Remove(character);
+            _context.Characters.Remove(characterToDelete);
             await _context.SaveChangesAsync();
 
             return NoContent();
