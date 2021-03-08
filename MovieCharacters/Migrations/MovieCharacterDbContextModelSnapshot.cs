@@ -59,6 +59,44 @@ namespace MovieCharacters.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Characters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Alias = "Nip",
+                            FirstName = "Bradley",
+                            Gender = "Male",
+                            LastName = "Cooper",
+                            Picture = "link"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Alias = "Justice League Unlimited",
+                            FirstName = "Carl",
+                            Gender = "Male",
+                            LastName = "Lumbly",
+                            Picture = "link"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Alias = "Felicity",
+                            FirstName = "Jennifer",
+                            Gender = "Female",
+                            LastName = "Garner",
+                            Picture = "link"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Alias = "Fanny and Alexander",
+                            FirstName = "Lena",
+                            Gender = "Female",
+                            LastName = "Olin",
+                            Picture = "link"
+                        });
                 });
 
             modelBuilder.Entity("MovieCharacters.Models.DomainModels.Franchise", b =>
@@ -69,14 +107,37 @@ namespace MovieCharacters.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Franchises");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Franchise about batman and stuff",
+                            Name = "Batman"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "One of the greatest stories in recent history.",
+                            Name = "Lord of the Rings"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "A series of events in a trilogy that only needed a single movie.",
+                            Name = "Hobbit"
+                        });
                 });
 
             modelBuilder.Entity("MovieCharacters.Models.DomainModels.Movie", b =>
@@ -102,7 +163,6 @@ namespace MovieCharacters.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ReleaseYear")
-                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
