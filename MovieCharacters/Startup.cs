@@ -33,6 +33,7 @@ namespace MovieCharacters
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddScoped<ICharacterService, CharacterService>();
+            services.AddScoped<IFranchiseService, FranchiseService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieCharacters", Version = "v1" });

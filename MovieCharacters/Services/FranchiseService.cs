@@ -99,6 +99,8 @@ namespace MovieCharacters.Services
 
             return true;
         }
+
+
         private bool FranchiseExists(int id)
         {
             return _context.Franchises.Any(e => e.Id == id);
