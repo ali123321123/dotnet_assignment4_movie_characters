@@ -33,6 +33,7 @@ namespace MovieCharacters
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddScoped<ICharacterService, CharacterService>();
+            services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IFranchiseService, FranchiseService>();
             services.AddSwaggerGen(c =>
             {

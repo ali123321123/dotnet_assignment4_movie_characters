@@ -72,8 +72,5 @@ namespace MovieCharacters.Controllers
             return _characterService.DeleteCharacter(id);
           
        }
-
-     
-
     }
 }

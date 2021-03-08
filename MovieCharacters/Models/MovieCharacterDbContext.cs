@@ -21,7 +21,11 @@ namespace MovieCharacters.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
              
-            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 1, Title = "Inception", Genre = "Thriller", ReleaseYear =2010, Director = "Christopher Nolan", Picture = "link", Trailer = "link", FranchiseId = null });
+            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 1, Title = "Inception", Genre = "Sci-fi", ReleaseYear = 2010, Director = "Christopher Nolan", Picture = "link", Trailer = "link", FranchiseId = null });
+            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 2, Title = "Avengers", Genre = "Adventure", ReleaseYear = 2012, Director = "Russo Brothers", Picture = "link", Trailer = "link", FranchiseId = null });
+            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 3, Title = "Fast&Furious", Genre = "Actuin", ReleaseYear = 2001, Director = "Rob Cohen", Picture = "link", Trailer = "link", FranchiseId = null });
+            modelBuilder.Entity<Movie>().HasData(new Movie { Id = 4, Title = "Titanic", Genre = "Romance", ReleaseYear = 1997, Director = "James Cameron", Picture = "link", Trailer = "link", FranchiseId = null });
+
             modelBuilder.Entity<Character>().HasData(new Character { Id = 1, FirstName = "Bradley", LastName = "Cooper", Alias = "Nip", Gender = "Male", Picture = "link" });
             modelBuilder.Entity<Character>().HasData(new Character { Id = 2,  FirstName = "Carl", LastName = "Lumbly", Alias = "Justice League Unlimited", Gender = "Male", Picture = "link" });
             modelBuilder.Entity<Character>().HasData(new Character { Id = 3, FirstName = "Jennifer", LastName = "Garner", Alias = "Felicity", Gender = "Female", Picture = "link" });
