@@ -24,7 +24,7 @@ namespace MovieCharacters.Models.DomainModels
         [MaxLength(50)]
         public string Trailer { get; set; }
         public int? FranchiseId { get; set; }
-        public Franchise Franchise { get; set; }
+        public string Franchise { get; set; }
         public ICollection<Character> Characters { get; set; }
     }
 }

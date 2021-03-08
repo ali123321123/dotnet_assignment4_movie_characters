@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MovieCharacters.DTO;
 using MovieCharacters.Models;
 using MovieCharacters.Models.DomainModels;
+using MovieCharacters.Services;
 
 namespace MovieCharacters.Controllers
 {
@@ -14,90 +17,75 @@ namespace MovieCharacters.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly MovieCharacterDbContext _context;
 
-        public MoviesController(MovieCharacterDbContext context)
+        private readonly MovieCharacterDbContext _context;
+        private readonly IMovieService _movieService;
+
+        public MoviesController(MovieCharacterDbContext context, IMovieService movieService)
         {
             _context = context;
+            _movieService = movieService;
+
         }
 
         // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        public Task<IEnumerable<MovieDTO>> GetMovies()
         {
-            return await _context.Movies.ToListAsync();
+            return _movieService.GetMoviesAsync();
         }
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
+        public async Task<ActionResult<MovieDTO>> GetMovie(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-
-            if (movie == null)
+            try
+            {
+                return await _movieService.GetMoviesByIdAsync(id);
+            }
+            catch (Exception)
             {
                 return NotFound();
             }
-
-            return movie;
         }
 
         // PUT: api/Movies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, Movie movie)
+        public async Task<IActionResult> PutMovie(int id, MovieDTO movieDTO)
         {
-            if (id != movie.Id)
+            if (id != movieDTO.Id)
             {
                 return BadRequest();
             }
-
-            _context.Entry(movie).State = EntityState.Modified;
-
-            try
+            
+            bool updated = await _movieService.UpdateMovieAsync(id, movieDTO);
+            if(updated)
             {
-                await _context.SaveChangesAsync();
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MovieExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return NotFound();
         }
 
         // POST: api/Movies
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<Movie>> PostMovie(MovieDTO movieDTO)
         {
-            _context.Movies.Add(movie);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+            int movieId = await _movieService.PostMovieAsync(movieDTO);
+            return CreatedAtAction("GetMovie", new { id = movieId }, movieId);
         }
 
         // DELETE: api/Movies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        public async Task<ActionResult> DeleteMovie(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            bool deleted = await _movieService.DeleteMovie(id);
+            if (deleted)
             {
-                return NotFound();
+                return NoContent();
             }
-
-            _context.Movies.Remove(movie);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return NotFound();
         }
 
         private bool MovieExists(int id)
@@ -117,7 +105,7 @@ namespace MovieCharacters.Controllers
         }
 
         [HttpPost("{id}/characters")]
-        public async Task<IActionResult> CharacterToMovie(int id, List<int> characters)
+        public async Task<IActionResult> AddCharacterToMovie(int id, List<int> characters)
         {
             Movie movie = await _context.Movies.Include(m => m.Characters).FirstOrDefaultAsync(m => m.Id == id);
             if(characters == null)
@@ -142,21 +130,12 @@ namespace MovieCharacters.Controllers
         [HttpPut("{id}/characters")]
         public async Task<IActionResult> UpdateCharactersForMovie(int id, List<int> characters)
         {
-            Movie movie = await _context.Movies.Include(m => m.Characters).FirstOrDefaultAsync(m => m.Id == id);
-            if (characters == null)
+            bool updatedCharacters = await _movieService.UpdateCharactersForMovie(id, characters);
+            if(updatedCharacters)
             {
-                return NotFound();
+                return NoContent();
             }
-            movie.Characters.Clear();
-            foreach (int characterId in characters)
-            {
-
-                Character character = await _context.Characters.FindAsync(characterId);
-                movie.Characters.Add(character);
-            }
-            await _context.SaveChangesAsync();
-            return NoContent();
-
+            return NotFound();
         }
     }
 }
