@@ -30,7 +30,12 @@ namespace MovieCharacters.Models
             modelBuilder.Entity<Character>().HasData(new Character { Id = 2,  FirstName = "Carl", LastName = "Lumbly", Alias = "Justice League Unlimited", Gender = "Male", Picture = "link" });
             modelBuilder.Entity<Character>().HasData(new Character { Id = 3, FirstName = "Jennifer", LastName = "Garner", Alias = "Felicity", Gender = "Female", Picture = "link" });
             modelBuilder.Entity<Character>().HasData(new Character { Id = 4, FirstName = "Lena", LastName = "Olin", Alias = "Fanny and Alexander", Gender = "Female", Picture = "link" });
-             
+
+            // Franchise
+            modelBuilder.Entity<Franchise>().HasData(new Franchise { Id = 1, Name = "Batman", Description = "Franchise about batman and stuff"});
+            modelBuilder.Entity<Franchise>().HasData(new Franchise { Id = 2, Name = "Lord of the Rings", Description = "One of the greatest stories in recent history."});
+            modelBuilder.Entity<Franchise>().HasData(new Franchise { Id = 3, Name = "Hobbit", Description = "A series of events in a trilogy that only needed a single movie."});
+
         }
         
     }
