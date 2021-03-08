@@ -13,6 +13,7 @@ namespace MovieCharacters.ModelMapper
         public MovieProfile()
         {
             CreateMap<Movie, MovieDTO>();
+            CreateMap<Character, MovieCharacterDTO>().ForMember(dto => dto.Id, c => c.MapFrom(c => c.Id));
             CreateMap<MovieDTO, Movie>();
         }
 
