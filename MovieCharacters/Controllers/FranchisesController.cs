@@ -16,9 +16,9 @@ namespace MovieCharacters.Controllers
     [ApiController]
     public class FranchisesController : ControllerBase
     {
-        private readonly FranchiseService _service;
+        private readonly IFranchiseService _service;
 
-        public FranchisesController(FranchiseService service)
+        public FranchisesController(IFranchiseService service)
         {
             _service = service;
         }
@@ -67,12 +67,11 @@ namespace MovieCharacters.Controllers
         // POST: api/Franchises
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FranchiseDTO>> PostFranchise(FranchiseDTO franchiseDTO)
+        public Task<bool> PostFranchise(FranchiseDTO franchiseDTO)
         {
             // consider change here
-            bool success = await _service.PostFranchiseAsync(franchiseDTO);
 
-            return CreatedAtAction("GetFranchise", new { id = franchiseDTO.Id }, franchiseDTO);
+            return _service.PostFranchiseAsync(franchiseDTO);
         }
 
         // DELETE: api/Franchises/5
