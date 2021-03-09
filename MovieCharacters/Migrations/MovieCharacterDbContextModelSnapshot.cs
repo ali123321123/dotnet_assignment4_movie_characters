@@ -42,16 +42,21 @@ namespace MovieCharacters.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Alias")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
@@ -151,6 +156,9 @@ namespace MovieCharacters.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Franchise")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("FranchiseId")
                         .HasColumnType("int");
 
@@ -185,10 +193,40 @@ namespace MovieCharacters.Migrations
                         {
                             Id = 1,
                             Director = "Christopher Nolan",
-                            Genre = "Thriller",
+                            Genre = "Sci-fi",
                             Picture = "link",
                             ReleaseYear = 2010,
                             Title = "Inception",
+                            Trailer = "link"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Director = "Russo Brothers",
+                            Genre = "Adventure",
+                            Picture = "link",
+                            ReleaseYear = 2012,
+                            Title = "Avengers",
+                            Trailer = "link"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Director = "Rob Cohen",
+                            Genre = "Actuin",
+                            Picture = "link",
+                            ReleaseYear = 2001,
+                            Title = "Fast&Furious",
+                            Trailer = "link"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Director = "James Cameron",
+                            Genre = "Romance",
+                            Picture = "link",
+                            ReleaseYear = 1997,
+                            Title = "Titanic",
                             Trailer = "link"
                         });
                 });
@@ -210,11 +248,9 @@ namespace MovieCharacters.Migrations
 
             modelBuilder.Entity("MovieCharacters.Models.DomainModels.Movie", b =>
                 {
-                    b.HasOne("MovieCharacters.Models.DomainModels.Franchise", "Franchise")
+                    b.HasOne("MovieCharacters.Models.DomainModels.Franchise", null)
                         .WithMany("Movies")
                         .HasForeignKey("FranchiseId");
-
-                    b.Navigation("Franchise");
                 });
 
             modelBuilder.Entity("MovieCharacters.Models.DomainModels.Franchise", b =>

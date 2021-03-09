@@ -9,6 +9,7 @@ namespace MovieCharacters.Services
 {
     public interface ICharacterService
     {
+
         public Task <IEnumerable<CharacterDTO>> GetCharactersAsync();
         public Task <ActionResult<CharacterDTO>> GetCharacterByIdAsync(int id);
         public  Task<bool> UpdateCharacterAsync(int id, CharacterDTO characterDTO);
