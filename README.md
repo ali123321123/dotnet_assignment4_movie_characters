@@ -14,55 +14,49 @@ The Code is also made to be able to easily expand on the features where we have 
 
 ## Business Rules
 
-- [ ] One movie contains many character
-- [ ] A character can play in multiple movies, make a linking table that can be called MovieCharacter 
-- [ ] One movies belongs to one franchise
-- [ ] A franchise can contain many movies
+- [x] One movie contains many character
+- [x] A character can play in multiple movies, make a linking table that can be called MovieCharacter 
+- [x] One movies belongs to one franchise
+- [x] A franchise can contain many movies
 
 
 ## Data requirements
 
 **Character**
 
-- [ ] Autoincremented id
-- [ ] Full name
-- [ ] Alias(if applicable)
-- [ ] Gender
-- [ ] Picture (URL to photo - do not store an image)
-
-**MovieCharacter**
-
-- [ ] PK and FK 
-- [ ] Picture(URL again, for a particular movie)
-- [ ] When getting all characters in a movie, this image should be shown not the base picture for a character
+- [x] Autoincremented id
+- [x] Full name
+- [x] Alias(if applicable)
+- [x] Gender
+- [x] Picture (URL to photo - do not store an image)
 
 **Movie**
 
-- [ ] Autoincremented Id
-- [ ] Movie title
-- [ ] Genre (just a simple string of a comma sepereated genres, there is no genre modelling required as a base)
-- [ ] Release year
-- [ ] Director(just a string name, no director modelling required as a base)
-- [ ] Picture (URL to a movie poster)
-- [ ] Trailer (Youtube link most likely)
+- [x] Autoincremented Id
+- [x] Movie title
+- [x] Genre (just a simple string of a comma sepereated genres, there is no genre modelling required as a base)
+- [x] Release year
+- [x] Director(just a string name, no director modelling required as a base)
+- [x] Picture (URL to a movie poster)
+- [x] Trailer (Youtube link most likely)
 
 **Franchise**
 
-- [ ] Autoincremented Id
-- [ ] Name
-- [ ] Description
+- [x] Autoincremented Id
+- [x] NameS
+- [x] Description
 
 ## API Requirements
 
 Full CRUD for
-- [ ] Movies
-- [ ] Characters
-- [ ] Franchises
+- [x] Movies
+- [x] Characters
+- [x] Franchises
 
-- [ ] Make sure related data is not deleted - foreign keys kan be set to null
-- [ ] Moviecharacter linking table have to remove the related entries when a Character or Movie is deleted
+- [x] Make sure related data is not deleted - foreign keys kan be set to null
+- [x] Moviecharacter linking table have to remove the related entries when a Character or Movie is deleted
 
 Additional endpoints 
 - [ ] Get all the movies in a franchise
-- [ ] Get all the characters in a movie
+- [x] Get all the characters in a movie
 - [ ] Get all the caracters in a franchise 

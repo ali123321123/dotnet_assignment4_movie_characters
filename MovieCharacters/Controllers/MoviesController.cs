@@ -57,7 +57,7 @@ namespace MovieCharacters.Controllers
             {
                 return NoContent();
             }
-            return NotFound();
+            return BadRequest();
         }
 
         // POST: api/Movies
@@ -78,7 +78,7 @@ namespace MovieCharacters.Controllers
             {
                 return NoContent();
             }
-            return NotFound();
+            return BadRequest();
         }
 
         // GET api/movies/2/characters
@@ -101,7 +101,7 @@ namespace MovieCharacters.Controllers
             {
                 return NoContent();
             }
-            return NotFound();
+            return BadRequest();
         }
 
         // PUT api/movies/2/characters
@@ -114,7 +114,7 @@ namespace MovieCharacters.Controllers
             {
                 return NoContent();
             }
-            return NotFound();
+            return BadRequest();
         }
     }
 }
