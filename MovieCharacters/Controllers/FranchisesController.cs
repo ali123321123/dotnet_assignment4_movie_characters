@@ -67,11 +67,11 @@ namespace MovieCharacters.Controllers
         // POST: api/Franchises
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public Task<bool> PostFranchise(FranchiseDTO franchiseDTO)
+        public async Task<ActionResult<FranchiseDTO>> PostFranchise(FranchiseDTO franchiseDTO)
         {
             // consider change here
-
-            return _service.PostFranchiseAsync(franchiseDTO);
+            FranchiseDTO franchise = await _service.PostFranchiseAsync(franchiseDTO);
+            return CreatedAtAction("GetFranchise", new { id = franchise.Id }, franchise);
         }
 
         // DELETE: api/Franchises/5

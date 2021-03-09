@@ -12,7 +12,7 @@ namespace MovieCharacters.Services
         public Task<IEnumerable<FranchiseDTO>> GetFranchisesAsync();
         public Task<ActionResult<FranchiseDTO>> GetFranchiseByIdAsync(int id);
         public Task<bool> UpdateFranchiseAsync(int id, FranchiseDTO franchiseDTO);
-        public Task<bool> PostFranchiseAsync(FranchiseDTO franchiseDTO);
+        public Task<FranchiseDTO> PostFranchiseAsync(FranchiseDTO franchiseDTO);
         public Task<bool> DeleteFranchise(int id);
         public Task<IEnumerable<CharacterDTO>> GetCharactersForFranchise(int id);
         public Task<IEnumerable<MovieDTO>> GetMoviesForFranchise(int id);
