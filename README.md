@@ -57,7 +57,7 @@ Full CRUD for
 - [x] Movies
 - [x] Characters
 - [x] Franchises
-
+---
 - [x] Make sure related data is not deleted - foreign keys kan be set to null
 - [x] Moviecharacter linking table have to remove the related entries when a Character or Movie is deleted
 
