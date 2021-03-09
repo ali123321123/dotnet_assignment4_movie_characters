@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MovieCharacters.DTO;
+using MovieCharacters.Models.DomainModels;
 using MovieCharacters.Services;
 
 namespace MovieCharacters.Controllers
@@ -63,8 +64,8 @@ namespace MovieCharacters.Controllers
         [HttpPost]
         public async Task<ActionResult<MovieDTO>> PostMovie(MovieDTO movieDTO)
         {
-            int movieId = await _movieService.PostMovieAsync(movieDTO);
-            return CreatedAtAction("GetMovie", new { id = movieId }, movieId);
+            MovieDTO movie = await _movieService.PostMovieAsync(movieDTO);
+            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
         }
 
         // DELETE: api/Movies/2
