@@ -15,6 +15,8 @@ namespace MovieCharacters.Services
         public  Task<bool> UpdateCharacterAsync(int id, CharacterDTO characterDTO);
         public Task<bool> PostCharacterAsync(CharacterDTO characterDTO);
         public Task<bool> DeleteCharacter(int id);
-
+     
+        Task<bool> AddMoviesToCharacter(int id, List<int> movies);
+        Task<IEnumerable<MovieDTO>> GetMoviesForCharacter(int id);
     }
 }

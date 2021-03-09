@@ -31,9 +31,32 @@ namespace MovieCharacters.Controllers
         {
             return _characterService.GetCharactersAsync();
         }
-        
-       // GET: api/Characters/5
-       [HttpGet("{id}")]
+
+        // POST api/character/2/movies
+        [HttpPost("{id}/movies")]
+        public async Task<IActionResult> AddMoviesToCharacter(int id, List<int> movies)
+        {
+            if (movies == null)
+            {
+                return BadRequest();
+            }
+            bool moviesAdded = await _characterService.AddMoviesToCharacter(id, movies);
+            if (moviesAdded)
+            {
+                return NoContent();
+            }
+            return NotFound();
+        }
+
+
+
+
+
+
+
+
+        // GET: api/Characters/5
+        [HttpGet("{id}")]
        public async Task<ActionResult<CharacterDTO>> GetCharacter(int id)
        {
             try { return await _characterService.GetCharacterByIdAsync(id); }
@@ -83,6 +106,20 @@ namespace MovieCharacters.Controllers
             }
 
        }
+
+
+
+        // GET api/characters/2/movies
+        [HttpGet("{id}/movies")]
+        public async Task<IEnumerable<MovieDTO>> GetMoviesForCharacter(int id)
+        {
+            return await _characterService.GetMoviesForCharacter(id);
+        }
+
+
+
+
+
 
         
        // DELETE: api/Characters/5
