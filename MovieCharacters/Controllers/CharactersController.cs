@@ -20,8 +20,6 @@ namespace MovieCharacters.Controllers
         
         private readonly ICharacterService _characterService;
 
-       
-
         public CharactersController(ICharacterService characterService)
         {
             _characterService = characterService;
@@ -67,7 +65,6 @@ namespace MovieCharacters.Controllers
 
            }
 
-        
 
        // POST: api/Characters
        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

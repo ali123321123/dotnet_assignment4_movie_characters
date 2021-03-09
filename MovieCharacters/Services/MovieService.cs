@@ -115,10 +115,27 @@ namespace MovieCharacters.Services
         {
             // Map movieDTO to Movie
             Movie movie = _mapper.Map<Movie>(movieDTO);
+            // Clear the movie characters because we need to map the characters with the id to to movie and not just id.
+            movie.Characters.Clear();
+            // Checks if the movieDTO is null
+            if(movieDTO.Characters != null)
+            {
+                // Mapping from MovieCharacterDTO to characters
+                foreach (MovieCharacterDTO character in movieDTO.Characters)
+                {
+                    if(character.Id != 0)
+                    {
+                        // Finds the character with the id and adds it to the movie
+                        Character characters = await _context.Characters.FindAsync(character.Id);
+                        movie.Characters.Add(characters);
+                    }
+                }
+            }
+
             // Add movie to database
             _context.Movies.Add(movie);
             await _context.SaveChangesAsync();
-            // Map the newly created movie to movieDTO
+            // Map the newly created movie to movieDTO to send as a response back to client
             MovieDTO movieResponeDTO = _mapper.Map<MovieDTO>(movie);
 
             return movieResponeDTO;

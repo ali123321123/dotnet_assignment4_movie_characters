@@ -15,6 +15,7 @@ namespace MovieCharacters.ModelMapper
             CreateMap<Movie, MovieDTO>();
             CreateMap<Character, MovieCharacterDTO>().ForMember(dto => dto.Id, c => c.MapFrom(c => c.Id));
             CreateMap<MovieDTO, Movie>();
+            CreateMap<MovieCharacterDTO, Character>();
         }
 
     }
