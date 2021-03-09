@@ -13,6 +13,8 @@ namespace MovieCharacters.Mappers
         public FranchiseProfile()
         {
             CreateMap<Franchise, FranchiseDTO>();
+            CreateMap<Franchise, FranchiseMovieDTO>().ForMember(dto => dto.Id, c => c.MapFrom(c => c.Id));
+            CreateMap<Franchise, FranchiseCharacterDTO>().ForMember(dto => dto.Id, c => c.MapFrom(c => c.Id));
             CreateMap<FranchiseDTO, Franchise>();
         }
 
