@@ -2,7 +2,7 @@
 ###### Created by Thanh Tran, Olav Rongved and Ali.
 
 Assignment for Noroff Dotnet programme. The purpose of the project is to make a RESTful API that can store information about characters, movies and franchises.
-The Code is also made to be able to easily expand on the features where we have used the repository pattern to structure the program. 
+The Code is also made to be able to easily expand on the features where we have used the service pattern to clean up the endpoints. 
 
 **Programming language and tools**
 * C#
@@ -11,6 +11,11 @@ The Code is also made to be able to easily expand on the features where we have 
 * SQL Server 
 * ASP.NET Core
 * RESTful API
+
+## Starting the program
+
+To start the program open up the project in a code editor like Visual Studio. 
+Start the program and a browser with swagger documentation will popup where you can test all the endpoints.
 
 ## Business Rules
 
@@ -57,6 +62,6 @@ Full CRUD for
 - [x] Moviecharacter linking table have to remove the related entries when a Character or Movie is deleted
 
 Additional endpoints 
-- [ ] Get all the movies in a franchise
+- [x] Get all the movies in a franchise
 - [x] Get all the characters in a movie
-- [ ] Get all the caracters in a franchise 
+- [x] Get all the caracters in a franchise 
