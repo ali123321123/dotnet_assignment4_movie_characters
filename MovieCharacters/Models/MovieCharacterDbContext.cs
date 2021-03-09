@@ -20,7 +20,7 @@ namespace MovieCharacters.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             
+            // Add data to movies
             modelBuilder.Entity<Movie>().HasData(new Movie { Id = 1, Title = "Inception", Genre = "Sci-fi", ReleaseYear = 2010, Director = "Christopher Nolan", Picture = "link", Trailer = "link", FranchiseId = null });
             modelBuilder.Entity<Movie>().HasData(new Movie { Id = 2, Title = "Avengers", Genre = "Adventure", ReleaseYear = 2012, Director = "Russo Brothers", Picture = "link", Trailer = "link", FranchiseId = null });
             modelBuilder.Entity<Movie>().HasData(new Movie { Id = 3, Title = "Fast&Furious", Genre = "Actuin", ReleaseYear = 2001, Director = "Rob Cohen", Picture = "link", Trailer = "link", FranchiseId = null });
