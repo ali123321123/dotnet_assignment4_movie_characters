@@ -15,7 +15,7 @@ namespace MovieCharacters.Models.DomainModels
         public string Title { get; set; }
         [MaxLength(15)]
         public string Genre { get; set; }
-        [Range(4,4)]
+        [Range(1, 9999)]
         public int ReleaseYear { get; set; }
         [MaxLength(50)]
         public string Director { get; set; }
