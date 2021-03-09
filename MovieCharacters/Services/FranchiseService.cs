@@ -115,9 +115,18 @@ namespace MovieCharacters.Services
 
         public async Task<IEnumerable<FranchiseDTO>> GetFranchisesAsync()
         {
-            IEnumerable<Franchise> FranchiseList = await _context.Franchises.Include(c => c.Movies).ToListAsync();
+            IEnumerable<Franchise> FranchiseList = await _context.Franchises.Include(m => m.Movies)
+                                                                            .Include(c => c.Characters)
+                                                                            .ToListAsync();
+            
             IEnumerable<FranchiseDTO> FranchiseListDTO = _mapper.Map<IEnumerable<FranchiseDTO>>(FranchiseList);
 
+            foreach (FranchiseDTO franchise in FranchiseListDTO)
+            {
+                // Map all characters in movie to moviecharacterDTO to avoid overposting
+                franchise.Characters = _mapper.Map<List<FranchiseCharacterDTO>>(franchise.Characters);
+                franchise.Movies     = _mapper.Map<List<FranchiseMovieDTO>>(franchise.Movies);
+            }
             return FranchiseListDTO;
         }
 
@@ -125,20 +134,57 @@ namespace MovieCharacters.Services
         {
             Franchise franchise = await _context.Franchises.Include(f => f.Movies).FirstOrDefaultAsync(m => m.Id == id);
 
+            
 
             IEnumerable<MovieDTO> movieListDTO = _mapper.Map<IEnumerable<MovieDTO>>(franchise.Movies);
 
             return movieListDTO;
         }
 
-        public async Task<bool> PostFranchiseAsync(FranchiseDTO franchiseDTO)
+        public async Task<FranchiseDTO> PostFranchiseAsync(FranchiseDTO franchiseDTO)
         {
+            // Map movieDTO to Movie
             Franchise franchise = _mapper.Map<Franchise>(franchiseDTO);
+            // Clear the movie characters because we need to map the characters with the id to to movie and not just id.
+            franchise.Characters.Clear();
+            franchise.Movies.Clear();
+            // Checks if the movieDTO is null
+            if (franchiseDTO.Characters != null)
+            {
+                // Mapping from MovieCharacterDTO to characters
+                foreach (FranchiseCharacterDTO character in franchiseDTO.Characters)
+                {
+                    if (character.Id != 0)
+                    {
+                        // Finds the character with the id and adds it to the movie
+                        Character characters = await _context.Characters.FindAsync(character.Id);
+                        franchise.Characters.Add(characters);
+                    }
+                }
+            }
 
+            // For movie
+            if (franchiseDTO.Movies != null)
+            {
+                foreach (FranchiseMovieDTO movie in franchiseDTO.Movies)
+                {
+                    if (movie.Id != 0)
+                    {
+                        // Finds the character with the id and adds it to the movie
+                        Movie movies = await _context.Movies.FindAsync(movie.Id);
+                        franchise.Movies.Add(movies);
+                    }
+                }
+            }
+            
+
+            // Add movie to database
             _context.Franchises.Add(franchise);
             await _context.SaveChangesAsync();
+            // Map the newly created movie to movieDTO to send as a response back to client
+            //FranchiseDTO franchiseResponseDTO = _mapper.Map<FranchiseDTO>(franchise);
 
-            return true;
+            return franchiseDTO;
         }
 
         
