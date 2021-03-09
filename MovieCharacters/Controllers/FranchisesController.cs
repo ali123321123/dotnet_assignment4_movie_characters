@@ -86,6 +86,76 @@ namespace MovieCharacters.Controllers
             return NoContent();
         }
 
+        // POST api/franchises/2/characters
+        [HttpPost("{id}/characters")]
+        public async Task<IActionResult> AddCharacterToFranchise(int id, List<int> characters)
+        {
+            if (characters == null)
+            {
+                return BadRequest();
+            }
+            bool charactersAdded = await _service.AddCharacterToFranchise(id, characters);
+            if (charactersAdded)
+            {
+                return NoContent();
+            }
+            return NotFound();
+        }
+
+        // POST api/franchises/2/movies
+        [HttpPost("{id}/movies")]
+        public async Task<IActionResult> AddMovieToFranchise(int id, List<int> movies)
+        {
+            if (movies == null)
+            {
+                return BadRequest();
+            }
+            bool charactersAdded = await _service.AddMovieToFranchise(id, movies);
+            if (charactersAdded)
+            {
+                return NoContent();
+            }
+            return NotFound();
+        }
+
+        // GET api/franchises/2/characters
+        [HttpGet("{id}/characters")]
+        public async Task<IEnumerable<CharacterDTO>> GetCharactersForFranchise(int id)
+        {
+            return await _service.GetCharactersForFranchise(id);
+        }
+
+        // GET api/franchises/2/movies
+        [HttpGet("{id}/movies")]
+        public async Task<IEnumerable<MovieDTO>> GetMoviesForFranchise(int id)
+        {
+            return await _service.GetMoviesForFranchise(id);
+        }
+
+        // PUT api/franchies/2/characters
+        [HttpPut("{id}/characters")]
+        public async Task<IActionResult> UpdateCharactersForFranchise(int id, List<int> characters)
+        {
+            bool updatedCharacters = await _service.UpdateCharactersForFranchise(id, characters);
+            if (updatedCharacters)
+            {
+                return NoContent();
+            }
+            return NotFound();
+        }
+
+        // PUT api/franchies/2/characters
+        [HttpPut("{id}/movies")]
+        public async Task<IActionResult> UpdateMoviesForFranchise(int id, List<int> characters)
+        {
+            bool updatedCharacters = await _service.UpdateMoviesForFranchise(id, characters);
+            if (updatedCharacters)
+            {
+                return NoContent();
+            }
+            return NotFound();
+        }
+
 
     }
 }
