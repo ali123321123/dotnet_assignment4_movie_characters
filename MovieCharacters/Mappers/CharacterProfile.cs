@@ -14,6 +14,8 @@ namespace MovieCharacters
         {
             CreateMap<Character, CharacterDTO>();
             CreateMap<CharacterDTO, Character>();
+            CreateMap<Movie, MoviesToCharacterDTO>().ForMember(dto => dto.Id, c => c.MapFrom(c => c.Id));
+            CreateMap<MoviesToCharacterDTO, Movie>();
         }
 
     }
