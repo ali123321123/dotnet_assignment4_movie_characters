@@ -68,12 +68,7 @@ namespace MovieCharacters.Services
 
         public async Task<bool> UpdateCharacterAsync(int id, CharacterDTO characterDTO)
         {
-            if (id != characterDTO.Id)
-            {
-                return false;
-            }
-
-
+           
             Character character = _mapper.Map<Character>(characterDTO);
 
             _context.Entry(character).State = EntityState.Modified;

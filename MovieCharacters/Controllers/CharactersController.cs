@@ -36,20 +36,35 @@ namespace MovieCharacters.Controllers
         
        // GET: api/Characters/5
        [HttpGet("{id}")]
-       public Task<ActionResult<CharacterDTO>> GetCharacter(int id)
+       public async Task<ActionResult<CharacterDTO>> GetCharacter(int id)
        {
-            return _characterService.GetCharacterByIdAsync(id);
-         
+            try { return await _characterService.GetCharacterByIdAsync(id); }
+            catch(Exception e)
+            {
+                return NotFound();
+            }
+                
        }
         
        // PUT: api/Characters/5
        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
        [HttpPut("{id}")]
-       public  Task<bool> PutCharacter(int id, CharacterDTO characterDTO)
+       public async Task<IActionResult>  PutCharacter(int id, CharacterDTO characterDTO)
        {
+            if (id != characterDTO.Id)
+            {
+                return BadRequest();
+            }
+            bool updated = await  _characterService.UpdateCharacterAsync(id, characterDTO);
+            if (updated)
+            {
+                return Ok(updated);
+            }
+            else
+            {
+                return NotFound();
+            }
 
-            return _characterService.UpdateCharacterAsync(id, characterDTO);
-          
            }
 
         
@@ -57,20 +72,36 @@ namespace MovieCharacters.Controllers
        // POST: api/Characters
        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
        [HttpPost]
-       public  Task<bool> PostCharacter(CharacterDTO characterDTO)
+       public async Task<IActionResult> PostCharacter(CharacterDTO characterDTO)
        {
 
-            return _characterService.PostCharacterAsync(characterDTO);
+          bool posted = await _characterService.PostCharacterAsync(characterDTO);
+            if (posted)
+            {
+                return Ok(posted);
+            }
+            else
+            {
+                return BadRequest("Not a valid character");
+            }
 
        }
 
         
        // DELETE: api/Characters/5
        [HttpDelete("{id}")]
-       public Task<bool> DeleteCharacter(int id)
+       public async Task<ActionResult> DeleteCharacter(int id)
        {
-            return _characterService.DeleteCharacter(id);
-          
+           bool deleted =  await _characterService.DeleteCharacter(id);
+            if (deleted)
+            {
+                return Ok(deleted);
+            }
+            else
+            {
+                return BadRequest("Couldn't delete this character");
+            }
+         
        }
     }
 }
