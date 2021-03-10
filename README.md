@@ -1,5 +1,5 @@
 # Dotnet_assignment4_movie_characters
-###### Created by Thanh Tran, Olav Rongved and Ali.
+###### Created by Thanh Tran, Olav Rongved and Mohammed Ali Zedan.
 
 Assignment for Noroff Dotnet programme. The purpose of the project is to make a RESTful API that can store information about characters, movies and franchises.
 The Code is also made to be able to easily expand on the features where we have used the service pattern to clean up the endpoints. 
